@@ -2,7 +2,8 @@ require 'string_calculator'
 
 RSpec.describe "my class" do
 
-  subject(:subject) { StringCalculator.new }
+  subject(:subject) { instance_double("StringCalculator") }
+
   describe "#add" do
     let(:add) { subject.add(string_1) }
     let(:string_1) { "string_1" }
@@ -11,7 +12,8 @@ RSpec.describe "my class" do
       let(:string_1) { "" }
 
       it 'returns 0' do
-        expect(add).to eq(0)
+        expect(subject).to receive(:add).with(string_1) { 0 }
+        add
       end
     end
 
@@ -21,7 +23,8 @@ RSpec.describe "my class" do
         let(:string_1) { nil }
 
         it 'will return their sum' do
-          expect(add).to eq(0)
+          expect(subject).to receive(:add).with(string_1) { 0 }
+          add
         end
       end
 
@@ -29,7 +32,8 @@ RSpec.describe "my class" do
         let(:string_1) { "1" }
 
         it 'will return their sum' do
-          expect(add).to eq(1)
+          expect(subject).to receive(:add).with(string_1) { 0 }
+          add
         end
       end
 
@@ -39,7 +43,8 @@ RSpec.describe "my class" do
         let(:string_2) { "2" }
 
         it 'will return their sum' do
-          expect(add).to eq(3)
+          expect(subject).to receive(:add).with(string_1, string_2) { 3 }
+          add
         end
       end
     end
